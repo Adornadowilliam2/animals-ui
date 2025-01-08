@@ -1,0 +1,17 @@
+section{
+    grid-template-areas: "img form";
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.img{
+    grid-area: img;
+}
+
+.form{
+    grid-area: form;
+    display: block;
+    margin: auto;
+}
