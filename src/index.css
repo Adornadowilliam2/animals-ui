@@ -12,6 +12,5 @@ section{
 
 .form{
     grid-area: form;
-    display: block;
-    margin: auto;
-}
+
+};
