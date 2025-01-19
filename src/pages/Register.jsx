@@ -1,4 +1,4 @@
-import { AltRoute, Close } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -10,11 +10,14 @@ import {
   Select,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const theme = useTheme();
+  const isSmallScreen = theme.breakpoints.down("sm");
   const [body, setBody] = useState({
     animal_name: "",
     animal_type: "",
@@ -55,7 +58,7 @@ export default function Register() {
       >
         <Close />
       </IconButton>
-      <Box sx={{ bgcolor: "#007bff" }}>
+      <Box sx={{ bgcolor: "#007bff" }} id="img-container">
         <img
           src="https://github.com/Adornadowilliam2/mfi-media/blob/master/whaleimg.png?raw=true"
           alt="Whale"
@@ -66,10 +69,20 @@ export default function Register() {
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "50%",
+          width: isSmallScreen ? "100%" : "50%",
           margin: "10px",
         }}
       >
+        <img
+          src="https://i.redd.it/fzi9asuzzkp81.jpg"
+          alt="red panda"
+          style={{
+            width: "100px",
+            objectFit: "contain",
+            margin: "5px auto",
+            display: isSmallScreen ? "block" : "none",
+          }}
+        />
         <Typography sx={{ mb: 2, fontSize: "24px", textAlign: "center" }}>
           Register
         </Typography>
