@@ -3,7 +3,7 @@ export const data = [
     id: 1,
     name: "Whale",
     image:
-      "https://th.bing.com/th/id/R.2b4268225b95bee619f25e8d939e356a?rik=OhCK7Q4S%2f4zu2A&riu=http%3a%2f%2fwallpapersqq.net%2fwp-content%2fuploads%2f2016%2f01%2fOrca-Killer-Whale-ocean-2.jpg&ehk=btsFT%2fSSFxZS8khCrGfgseP4UOlBCNFeXl9%2bTUwNNWg%3d&risl=&pid=ImgRaw&r=0",
+      "https://i.pinimg.com/736x/89/14/d8/8914d82c32a20d9183f4ba3fb9129d36.jpg",
     animal_type: "Mammal", // Defined animal type
   },
   {

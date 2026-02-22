@@ -58,20 +58,18 @@ export default function Register() {
       >
         <Close />
       </IconButton>
-      <Box sx={{ bgcolor: "#007bff" }} id="img-container">
-        <img
-          src="https://github.com/Adornadowilliam2/mfi-media/blob/master/whaleimg.png?raw=true"
-          alt="Whale"
-          style={{ width: "100%", objectFit: "contain" }}
-        />
-      </Box>
-      <Box
+   
+      <Container
         style={{
           display: "flex",
           flexDirection: "column",
           width: isSmallScreen ? "100%" : "50%",
           margin: "10px",
+          
+          padding: "20px",
+          width:'100vw'
         }}
+        variant="outlined"
       >
         <img
           src="https://i.redd.it/fzi9asuzzkp81.jpg"
@@ -84,7 +82,7 @@ export default function Register() {
           }}
         />
         <Typography sx={{ mb: 2, fontSize: "24px", textAlign: "center" }}>
-          Register
+          Create a new animal entry
         </Typography>
         <Box component="form" onSubmit={onSubmit}>
           <TextField
@@ -118,10 +116,10 @@ export default function Register() {
             </Select>
           </FormControl>
           <Button variant="contained" type="submit" fullWidth>
-            Register
+            Submit
           </Button>
         </Box>
-      </Box>
+      </Container>
     </Container>
   );
 }
