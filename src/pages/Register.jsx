@@ -12,114 +12,74 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createPet, getPets } from "../api/auth";
+import $ from "jquery";
 
 export default function Register() {
-  const theme = useTheme();
-  const isSmallScreen = theme.breakpoints.down("sm");
-  const [body, setBody] = useState({
-    animal_name: "",
-    animal_type: "",
-  });
-
-  const handleType = (e) => {
-    setBody({ ...body, animal_type: e.target.value });
-  };
-
-  const handleNameChange = (e) => {
-    setBody({ ...body, animal_name: e.target.value });
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    alert(JSON.stringify(body));
-  };
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!loading) {
+      const body = {
+        name: $("#pet_name").val(),
+        type: $("#pet_type").val(),
+        image: $("#pet_image").val(),
+      };
+
+      setLoading(true);
+
+      createPet(body)
+        .then((res) => {
+          if (res?.ok) {
+            alert(res?.message ?? "Pet has been created.");
+            navigate("/home");
+          } else {
+            alert(res?.message);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  };
+
+
   return (
-    <Container
-      sx={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <Box sx={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
       <IconButton
-        sx={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          boxShadow: "0px 0px 10px #ccc",
-          margin: "10px",
-        }}
         onClick={() => navigate("/home")}
+        sx={{ position: "absolute", top: 20, right: 20 }}
       >
         <Close />
       </IconButton>
-   
-      <Container
-        style={{
+
+      <FormControl
+        sx={{
+          width: "500px",
           display: "flex",
           flexDirection: "column",
-          width: isSmallScreen ? "100%" : "50%",
-          margin: "10px",
-          
-          padding: "20px",
-          width:'100vw'
+          gap: 2,
+          border: "25px double black",
+          p: 4,
+          borderRadius: "10px",
         }}
-        variant="outlined"
+        component="form"
+        onSubmit={handleSubmit}
       >
-        <img
-          src="https://i.redd.it/fzi9asuzzkp81.jpg"
-          alt="red panda"
-          style={{
-            width: "100px",
-            objectFit: "contain",
-            margin: "5px auto",
-            display: isSmallScreen ? "block" : "none",
-          }}
-        />
-        <Typography sx={{ mb: 2, fontSize: "24px", textAlign: "center" }}>
-          Create a new animal entry
+        <Typography variant="h4" textAlign="center">
+          Pet Manager
         </Typography>
-        <Box component="form" onSubmit={onSubmit}>
-          <TextField
-            label="Animal Name"
-            variant="outlined"
-            fullWidth
-            sx={{ mb: 2 }}
-            value={body.animal_name}
-            onChange={handleNameChange}
-          />
-          <FormControl fullWidth sx={{ mb: 2 }}>
-            <InputLabel htmlFor="animal-type">Animal Type</InputLabel>
-            <Select
-              value={body.animal_type}
-              onChange={handleType}
-              label="Animal Type"
-            >
-              {[
-                "mammal",
-                "bird",
-                "reptile",
-                "amphibian",
-                "fish",
-                "insect",
-                "invertebrate",
-              ].map((type) => (
-                <MenuItem key={type} value={type}>
-                  {type}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button variant="contained" type="submit" fullWidth>
-            Submit
-          </Button>
-        </Box>
-      </Container>
-    </Container>
+        <TextField placeholder="Pet Name" id="pet_name" />
+        <TextField placeholder="Pet Type" id="pet_type" />
+        <TextField placeholder="Image URL (optional)" id="pet_image" />
+        <Button type="submit" variant="contained">
+          Add Pet
+        </Button>
+      </FormControl>
+    </Box>
   );
 }
