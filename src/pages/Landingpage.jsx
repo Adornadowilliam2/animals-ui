@@ -10,55 +10,33 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { createPet, getPets } from "../api/auth";
+import { createPet, getPets} from "../api/auth";
 import { Close, Image } from "@mui/icons-material";
 import $ from "jquery";
 import { useNavigate } from "react-router-dom";
+
 
 export default function Landingpage() {
   const [pets, setPets] = useState([]);
 
   const navigate = useNavigate();
 
-
+// LandingPage.jsx (only fetch part)
 const fetchPets = () => {
   getPets().then((res) => {
     console.log(res);
-
-
-    console.log(`
-███████╗ ██   ██╗ 
-██╔════╝██╔═══██╗
-█████╗  ██║   ██║
-██╔══╝  ██║   ██║
-██║     ╚██████╔╝
-╚═╝      ╚═════╝ 
-
- ██████
-██╔════╝
-██║     
-██║     
-╚██████
- ╚═════╝
-██╗  ██╗
-██║ ██╔╝
-████╔╝ 
-██╔═██╗
-██║  ██╗
-╚═╝  ╚═╝
-Hello, FOCK world! 😎
-`);
-
     if (res?.ok) {
-      setPets(res.data); 
+      setPets(res.data); // ✅ USE data, not whole object
     }
   });
 };
 
+useEffect(() => {
+  fetchPets();
+}, []);
 
-  useEffect(() => {
-    fetchPets();
-  }, []);
+
+
 
   return (
     <Container>
@@ -79,29 +57,9 @@ Hello, FOCK world! 😎
         ) : (
           <List>
             {pets.map((pet) => (
-              <Box
-                key={pet.id}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 2,
-                  mb: 2,
-                  border: "1px solid #ccc",
-                  padding: 2,
-                  borderRadius: 2,
-                }}
-              >
+              <Box  key={pet.id} sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2, border: "1px solid #ccc", padding: 2, borderRadius: 2 }}>
                 {pet.image && (
-                  <img
-                    src={pet.image}
-                    alt={pet.name}
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      objectFit: "cover",
-                      borderRadius: "8px",
-                    }}
-                  />
+                  <img  src={pet.image} alt={pet.name} style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "8px" }} />
                 )}
                 <Box>
                   <Typography variant="h6">{pet.name.toUpperCase()}</Typography>
