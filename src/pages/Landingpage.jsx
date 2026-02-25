@@ -23,7 +23,7 @@ export default function Landingpage() {
 
   const fetchPets = () => {
     getPets().then((res) => {
-
+      console.log(res);
       if (res?.ok) {
         setPets(res.data); 
       }
